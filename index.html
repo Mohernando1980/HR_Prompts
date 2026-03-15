@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompts IA para RRHH — Cheat Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f8f7f4;--surface:#efeeea;--alt:#e6e5e0;--t1:#1a1a1f;--t2:#5a5a65;--t3:#8a8a95;--accent:#2a6b50;--accent-b:#348a62;--accent-dim:rgba(42,107,80,0.08);--accent-bd:rgba(42,107,80,0.18);--warn:#8a6d2a;--border:rgba(0,0,0,0.06);--border-m:rgba(0,0,0,0.10);--var-bg:rgba(42,107,80,0.10);--var-bd:rgba(42,107,80,0.25);--mono:'JetBrains Mono',monospace;--body:'DM Sans',system-ui,sans-serif}
+[data-theme="dark"]{--bg:#141518;--surface:#1c1d22;--alt:#24252b;--t1:#e8e8ec;--t2:#8c8c9a;--t3:#5a5a68;--accent:#5cc99a;--accent-b:#3daa7d;--accent-dim:rgba(92,201,154,0.10);--accent-bd:rgba(92,201,154,0.20);--warn:#c4a84d;--border:rgba(255,255,255,0.06);--border-m:rgba(255,255,255,0.10);--var-bg:rgba(92,201,154,0.12);--var-bd:rgba(92,201,154,0.28)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--t1);font-family:var(--body);font-size:16px;-webkit-font-smoothing:antialiased;transition:background 0.3s,color 0.3s}
+.page{max-width:920px;margin:0 auto;padding:3rem 2rem 4rem}
+.header{margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);position:relative}
+.header-label{font-family:var(--mono);font-size:0.6rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:0.6rem}
+h1{font-size:clamp(1.5rem,2.4vw,2rem);font-weight:700;color:var(--t1);line-height:1.2;letter-spacing:-0.02em;margin-bottom:0.5rem}
+.header-desc{font-size:0.92rem;color:var(--t2);line-height:1.6;max-width:60ch}
+.header-controls{position:absolute;top:0;right:0;display:flex;align-items:center;gap:0.6rem}
+.lang-toggle{display:flex;border:1px solid var(--border-m);border-radius:4px;overflow:hidden}
+.lang-btn{font-family:var(--mono);font-size:0.65rem;font-weight:500;padding:0.35rem 0.7rem;background:transparent;border:none;color:var(--t3);cursor:pointer;transition:all 0.2s}
+.lang-btn.is-active{background:var(--accent-dim);color:var(--accent)}
+.theme-toggle{width:28px;height:28px;border-radius:4px;border:1px solid var(--border-m);background:transparent;color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;padding:0}
+.theme-toggle:hover{color:var(--t1);border-color:var(--t3)}
+.theme-toggle svg{width:14px;height:14px}
+.intro{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1rem 1.2rem;margin-bottom:1.2rem}
+.intro p{font-size:0.85rem;color:var(--t2);line-height:1.6}
+.intro strong{color:var(--t1)}
+.search-wrap{margin-bottom:1.2rem;position:relative}
+.search-input{width:100%;font-family:var(--body);font-size:0.85rem;padding:0.6rem 1rem 0.6rem 2.4rem;border-radius:6px;border:1px solid var(--border-m);background:var(--surface);color:var(--t1);outline:none;transition:border-color 0.2s}
+.search-input:focus{border-color:var(--accent-bd)}
+.search-input::placeholder{color:var(--t3)}
+.search-icon{position:absolute;left:0.8rem;top:50%;transform:translateY(-50%);color:var(--t3);pointer-events:none}
+.search-icon svg{width:14px;height:14px}
+.filter-row{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.5rem}
+.filter-btn{font-family:var(--mono);font-size:0.62rem;font-weight:500;padding:0.35rem 0.8rem;border-radius:4px;border:1px solid var(--border-m);background:transparent;color:var(--t3);cursor:pointer;transition:all 0.2s}
+.filter-btn:hover{color:var(--t2);border-color:var(--t3)}
+.filter-btn.is-active{background:var(--accent-dim);border-color:var(--accent-bd);color:var(--accent)}
+.section{margin-bottom:2rem}
+.section-title{font-family:var(--mono);font-size:0.6rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);padding-bottom:0.5rem;border-bottom:1px solid var(--border);margin-bottom:0.8rem}
+.prompt-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1rem 1.2rem;margin-bottom:0.6rem;position:relative;transition:border-color 0.2s}
+.prompt-card:hover{border-color:var(--border-m)}
+.prompt-card.is-hidden{display:none}
+.prompt-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem}
+.prompt-title{font-size:0.88rem;font-weight:600;color:var(--t1)}
+.prompt-when{font-size:0.7rem;color:var(--t3);font-style:italic;margin-bottom:0.6rem}
+.prompt-text{font-family:var(--mono);font-size:0.75rem;color:var(--t2);line-height:1.55;background:var(--alt);padding:0.8rem 1rem;border-radius:4px;border:1px solid var(--border);white-space:pre-wrap;position:relative}
+.prompt-var{background:var(--var-bg);border:1px solid var(--var-bd);border-radius:3px;padding:0.1rem 0.3rem;cursor:pointer;color:var(--accent);font-weight:500;transition:all 0.2s}
+.prompt-var:hover{background:var(--accent-bd)}
+.prompt-var:focus{outline:2px solid var(--accent);outline-offset:1px}
+.prompt-var.is-filled{background:var(--accent-dim);color:var(--t1);border-color:var(--accent)}
+.copy-btn{font-family:var(--mono);font-size:0.55rem;font-weight:500;padding:0.25rem 0.6rem;border-radius:3px;border:1px solid var(--border-m);background:var(--bg);color:var(--t3);cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.copy-btn:hover{color:var(--accent);border-color:var(--accent-bd)}
+.copy-btn.is-copied{background:var(--accent-dim);color:var(--accent);border-color:var(--accent-bd)}
+.prompt-tip{font-size:0.68rem;color:var(--t3);margin-top:0.4rem;padding-left:0.6rem;border-left:2px solid var(--accent-bd)}
+.counter{font-family:var(--mono);font-size:0.62rem;color:var(--t3);margin-bottom:1.5rem}
+.no-results{text-align:center;padding:2rem;color:var(--t3);font-size:0.88rem}
+.footer{margin-top:2rem;padding-top:1.2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;gap:2rem}
+.footer-left p{font-family:var(--mono);font-size:0.6rem;color:var(--t3);line-height:1.5}
+.footer-right{font-family:var(--mono);font-size:0.55rem;color:var(--t3);white-space:nowrap;opacity:0.5}
+@media(max-width:768px){.footer{flex-direction:column;align-items:flex-start}.header-controls{position:static;margin-top:0.8rem}}
+@media print{.copy-btn,.filter-row,.lang-toggle,.theme-toggle,.search-wrap{display:none}.prompt-text{border:1px solid #ccc}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div class="header-controls">
+    <div class="lang-toggle">
+      <button class="lang-btn is-active" onclick="setLang('es')">ES</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="theme-toggle" id="themeToggle" title="Dark mode">
+      <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+  </div>
+  <div class="header-label" data-i="label"></div>
+  <h1 data-i="title"></h1>
+  <p class="header-desc" data-i="desc"></p>
+</div>
+
+<div class="intro">
+  <p data-i="intro"></p>
+</div>
+
+<div class="search-wrap">
+  <div class="search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+  <input type="text" class="search-input" id="searchInput" placeholder="">
+</div>
+
+<div class="filter-row" id="filters"></div>
+<div class="counter" id="counter"></div>
+<div id="sections"></div>
+
+<div class="footer">
+  <div class="footer-left">
+    <p data-i="foot1"></p>
+    <p style="margin-top:0.3rem" data-i="foot2"></p>
+  </div>
+  <div class="footer-right">Powered by Alfonso Bris</div>
+</div>
+
+</div>
+
+<script>
+(function(){
+var PROMPTS=[
+{cat:'recruiting',title_es:'Redactar job description inclusiva',title_en:'Write inclusive job description',when_es:'Cuando necesitas publicar una vacante y quieres evitar lenguaje sesgado.',when_en:'When you need to post a role and want to avoid biased language.',prompt_es:'Redacta una job description para el puesto de [PUESTO] en [EMPRESA/SECTOR]. Incluye: misión del rol, 5-7 responsabilidades clave, requisitos imprescindibles vs deseables (sepáralos claramente), y qué ofrece la empresa. Usa lenguaje neutro en género. Evita adjetivos como "ninja", "rockstar" o requisitos innecesarios de edad/presencia. Tono profesional pero cercano.',prompt_en:'Write a job description for the role of [ROLE] at [COMPANY/INDUSTRY]. Include: role mission, 5-7 key responsibilities, must-have vs nice-to-have requirements (clearly separated), and what the company offers. Use gender-neutral language. Professional but approachable tone.',tip_es:'Sustituye los campos resaltados por tus datos reales.',tip_en:'Replace highlighted fields with your actual data.'},
+{cat:'recruiting',title_es:'Preguntas de entrevista por competencias',title_en:'Competency-based interview questions',when_es:'Antes de una entrevista estructurada.',when_en:'Before a structured interview.',prompt_es:'Genera 8 preguntas de entrevista por competencias para el puesto de [PUESTO]. Para cada pregunta incluye: la competencia que evalúa, la pregunta (formato STAR), y qué buscar en una buena respuesta vs débil. Nivel de seniority: [JUNIOR/MID/SENIOR].',prompt_en:'Generate 8 competency-based interview questions for the [ROLE] position. For each include: competency assessed, STAR question, and what to look for in strong vs weak answers. Seniority: [JUNIOR/MID/SENIOR].',tip_es:'Adapta el nivel de seniority. No uses las preguntas literalmente.',tip_en:'Adjust seniority level. Do not use questions verbatim.'},
+{cat:'recruiting',title_es:'Resumir y comparar CVs',title_en:'Summarize and compare CVs',when_es:'Cuando tienes varios CVs y necesitas análisis rápido.',when_en:'When you have multiple CVs and need quick analysis.',prompt_es:'Analiza los siguientes CVs para el puesto de [PUESTO]. Para cada candidato genera: resumen en 3 líneas, fortalezas (máx 3), gaps (máx 3), puntuación 1-10 con justificación. Incluye tabla comparativa y recomendación.\n\n[PEGAR CVs AQUÍ]',prompt_en:'Analyze the following CVs for the [ROLE] position. For each generate: 3-line summary, strengths (max 3), gaps (max 3), fit score 1-10 with justification. Include comparison table and recommendation.\n\n[PASTE CVs HERE]',tip_es:'No compartas datos reales sin verificar política de privacidad.',tip_en:'Do not share real data without verifying privacy policy.'},
+{cat:'recruiting',title_es:'Mensaje de sourcing personalizado',title_en:'Personalized sourcing message',when_es:'Para contactar candidatos pasivos.',when_en:'To contact passive candidates.',prompt_es:'Escribe un mensaje de sourcing para contactar a un/a profesional de [PERFIL] que trabaja en [EMPRESA ACTUAL]. El puesto es [PUESTO] en [TU EMPRESA]. Breve (máx 100 palabras), menciona algo específico de su perfil, explica por qué le contactamos, cierra con pregunta abierta. Tono profesional y humano.',prompt_en:'Write a sourcing message to a [PROFILE] professional at [CURRENT COMPANY]. The role is [POSITION] at [YOUR COMPANY]. Brief (max 100 words), mention something specific, explain why, close with open question. Professional and human tone.',tip_es:'Personaliza siempre con un detalle real del perfil.',tip_en:'Always personalize with a real profile detail.'},
+{cat:'onboarding',title_es:'Plan de onboarding 30-60-90',title_en:'30-60-90 onboarding plan',when_es:'Cuando incorporas a alguien nuevo.',when_en:'When onboarding someone new.',prompt_es:'Genera un plan de onboarding de 90 días para un/a [PUESTO] en [DEPARTAMENTO]. Tres fases: Días 1-30 (integración), 31-60 (autonomía), 61-90 (contribución). Para cada fase: objetivos, personas clave, formaciones y métricas de éxito. Empresa de [SECTOR], [TAMAÑO] empleados.',prompt_en:'Generate a 90-day onboarding plan for a [ROLE] in [DEPARTMENT]. Three phases: Days 1-30 (integration), 31-60 (autonomy), 61-90 (contribution). For each: objectives, key people, training and success metrics. [INDUSTRY] company, [SIZE] employees.',tip_es:'Adapta al contexto. Tech no es igual que comercial.',tip_en:'Adapt to context. Tech differs from sales.'},
+{cat:'onboarding',title_es:'Email de bienvenida del manager',title_en:'Manager welcome email',when_es:'El día antes de que llegue alguien nuevo.',when_en:'Day before a new hire starts.',prompt_es:'Escribe un email de bienvenida de manager a [NOMBRE] que empieza el [FECHA] como [PUESTO]. Bienvenida cálida, qué esperar la primera semana, buddy asignado, 2-3 recursos útiles. Tono cercano. Máximo 200 palabras.',prompt_en:'Write a welcome email from manager to [NAME] starting [DATE] as [ROLE]. Warm welcome, first week expectations, assigned buddy, 2-3 useful resources. Warm tone. Max 200 words.',tip_es:'Reduce la ansiedad del primer día.',tip_en:'Reduces first-day anxiety.'},
+{cat:'onboarding',title_es:'FAQ para nuevos empleados',title_en:'New employee FAQ',when_es:'Para chatbot o base de conocimiento.',when_en:'For chatbot or knowledge base.',prompt_es:'Genera FAQ de 20 preguntas de nuevos empleados en empresa de [SECTOR]. Categorías: administrativo, tecnología, cultura, desarrollo. Respuestas concisas (2-3 frases), tono amable.',prompt_en:'Generate 20-question FAQ for new employees at a [INDUSTRY] company. Categories: admin, tech, culture, development. Concise answers (2-3 sentences), friendly tone.',tip_es:'Punto de partida perfecto para un agente virtual.',tip_en:'Perfect starting point for a virtual agent.'},
+{cat:'feedback',title_es:'Analizar comentarios de encuesta de clima',title_en:'Analyze climate survey comments',when_es:'Cuando tienes cientos de comentarios y necesitas patrones.',when_en:'When you have hundreds of comments and need patterns.',prompt_es:'Analiza estos comentarios de encuesta de clima. Identifica: 5 temas principales con frecuencia, sentimiento por tema, citas representativas (máx 2/tema), 3 acciones priorizadas. No inventes datos.\n\n[PEGAR COMENTARIOS]',prompt_en:'Analyze these climate survey comments. Identify: top 5 themes with frequency, sentiment per theme, representative quotes (max 2/theme), 3 prioritized actions. Do not invent data.\n\n[PASTE COMMENTS]',tip_es:'Anonimiza antes de pegar.',tip_en:'Anonymize before pasting.'},
+{cat:'feedback',title_es:'Preparar feedback difícil',title_en:'Prepare difficult feedback',when_es:'Cuando necesitas dar feedback correctivo.',when_en:'When you need to give corrective feedback.',prompt_es:'Prepara conversación de feedback. Situación: [DESCRIBIR]. Impacto: [DESCRIBIR]. Expectativa: [DESCRIBIR]. Genera: apertura, descripción sin juicios, impacto, petición constructiva, cierre con acuerdo. Modelo SBI. Tono firme pero respetuoso.',prompt_en:'Prepare feedback conversation. Situation: [DESCRIBE]. Impact: [DESCRIBE]. Expectation: [DESCRIBE]. Generate: opening, judgment-free description, impact, constructive request, close with agreement. SBI model. Firm but respectful.',tip_es:'Es guía de preparación, no guión.',tip_en:'Preparation guide, not a script.'},
+{cat:'feedback',title_es:'Escribir evaluación de desempeño',title_en:'Write performance review',when_es:'Durante el ciclo de evaluación.',when_en:'During the review cycle.',prompt_es:'Evaluación de desempeño para [NOMBRE/ROL]. Objetivos: [LISTAR]. Logros: [LISTAR]. Mejoras: [LISTAR]. Feedback pares: [RESUMIR]. Incluye: resumen ejecutivo, valoración por objetivo, fortalezas, desarrollo con acciones, recomendación. Tono constructivo.',prompt_en:'Performance review for [NAME/ROLE]. Objectives: [LIST]. Achievements: [LIST]. Improvements: [LIST]. Peer feedback: [SUMMARIZE]. Include: executive summary, per-objective assessment, strengths, development with actions, recommendation. Constructive tone.',tip_es:'La IA redacta, el juicio es tuyo.',tip_en:'AI drafts, judgment is yours.'},
+{cat:'formacion',title_es:'Itinerario formativo personalizado',title_en:'Personalized learning path',when_es:'Para diseñar un plan de desarrollo.',when_en:'To design a development plan.',prompt_es:'Itinerario de 3 meses para [PUESTO] nivel [JUNIOR/MID/SENIOR] con gaps: [LISTAR]. Por mes: tema, 2-3 recursos (priorizando gratis), 1 ejercicio práctico, 1 indicador medible. Empresa de [SECTOR], equipo de [TAMAÑO].',prompt_en:'3-month path for [ROLE] at [JUNIOR/MID/SENIOR] with gaps: [LIST]. Per month: topic, 2-3 resources (prioritize free), 1 practical exercise, 1 measurable indicator. [INDUSTRY] company, team of [SIZE].',tip_es:'Pide recursos gratuitos.',tip_en:'Ask for free resources.'},
+{cat:'formacion',title_es:'Contenido de microlearning',title_en:'Microlearning content',when_es:'Para píldoras formativas rápidas.',when_en:'For quick learning bites.',prompt_es:'Microlearning de 5 min sobre [TEMA]: gancho, concepto clave, ejemplo en [SECTOR/ROL], error común, acción concreta. Tono directo. Público: [AUDIENCIA].',prompt_en:'5-min microlearning on [TOPIC]: hook, key concept, example in [INDUSTRY/ROLE], common mistake, concrete action. Direct tone. Audience: [AUDIENCE].',tip_es:'Convierte en vídeo con Vidnoz, audio con NotebookLM, visual con Gamma.',tip_en:'Convert to video with Vidnoz, audio with NotebookLM, visuals with Gamma.'},
+{cat:'formacion',title_es:'Documento a guía formativa',title_en:'Document to training guide',when_es:'Cuando tienes política/manual y quieres material de formación.',when_en:'When you have a policy/manual and want training material.',prompt_es:'Transforma este documento en guía formativa: resumen (5 líneas), 5 puntos clave, 3 ejemplos prácticos, 5 preguntas test, infografía textual. Nivel accesible.\n\n[PEGAR DOCUMENTO]',prompt_en:'Transform this document into training guide: summary (5 lines), 5 key points, 3 practical examples, 5 quiz questions, textual infographic. Accessible level.\n\n[PASTE DOCUMENT]',tip_es:'Ideal para NotebookLM: sube y pide podcast o guía.',tip_en:'Ideal for NotebookLM: upload and ask for podcast or guide.'},
+{cat:'analytics',title_es:'Interpretar datos de rotación',title_en:'Interpret turnover data',when_es:'Cuando tienes datos en bruto y necesitas lectura estratégica.',when_en:'When you have raw data and need strategic reading.',prompt_es:'Analiza datos de rotación (12 meses): [PEGAR DATOS]. Genera: tasa global y por departamento, patrones, segmentos de riesgo, hipótesis causales (basadas en datos), 3 acciones priorizadas. Distingue datos de hipótesis.',prompt_en:'Analyze turnover data (12 months): [PASTE DATA]. Generate: overall and per-department rate, patterns, risk segments, causal hypotheses (data-based), 3 prioritized actions. Distinguish data from hypotheses.',tip_es:'Anonimiza siempre.',tip_en:'Always anonymize.'},
+{cat:'analytics',title_es:'Business case para dirección',title_en:'Business case for leadership',when_es:'Para justificar inversión ante CEO/comité.',when_en:'To justify investment to CEO/committee.',prompt_es:'Business case. Iniciativa: [DESCRIBIR]. Problema: [DESCRIBIR]. Genera: resumen ejecutivo (5 líneas, impacto negocio), situación actual vs deseada, inversión y ROI, riesgos de no actuar, timeline 3 fases, métricas. Tono CEO.',prompt_en:'Business case. Initiative: [DESCRIBE]. Problem: [DESCRIBE]. Generate: executive summary (5 lines, business impact), current vs desired, investment and ROI, inaction risks, 3-phase timeline, metrics. CEO tone.',tip_es:'El CEO quiere retención, productividad, coste. No "experiencia".',tip_en:'CEO wants retention, productivity, cost. Not "experience".'},
+{cat:'comunicacion',title_es:'Comunicar cambio organizativo',title_en:'Communicate organizational change',when_es:'Reorganización o decisión difícil.',when_en:'Reorganization or difficult decision.',prompt_es:'Comunicación interna sobre [DESCRIBIR CAMBIO]. Público: [DESTINATARIOS]. Afecta: [ASPECTOS]. Estructura: porqué, qué cambia, qué no cambia, qué esperar, contacto para dudas. Tono transparente. Máx 300 palabras.',prompt_en:'Internal communication about [DESCRIBE CHANGE]. Audience: [RECIPIENTS]. Affects: [ASPECTS]. Structure: why, what changes, what stays, what to expect, contact for questions. Transparent tone. Max 300 words.',tip_es:'Si suena a comunicado de prensa, reescríbelo.',tip_en:'If it sounds like a press release, rewrite it.'},
+{cat:'comunicacion',title_es:'Preparar 1:1 estructurada',title_en:'Prepare structured 1:1',when_es:'Antes de reunión individual.',when_en:'Before one-on-one meeting.',prompt_es:'Agenda 1:1 de 30 min con [NOMBRE/ROL]. Contexto: [SITUACIÓN]. Genera: 3 preguntas apertura, 2 temas seguimiento, 1 pregunta desarrollo, 1 bienestar, cierre con compromisos. Tono coaching.',prompt_en:'30-min 1:1 agenda with [NAME/ROLE]. Context: [SITUATION]. Generate: 3 opening questions, 2 follow-up topics, 1 development question, 1 wellbeing, close with commitments. Coaching tone.',tip_es:'5 min de preparación marcan la diferencia.',tip_en:'5 minutes of preparation make the difference.'},
+{cat:'gobierno',title_es:'Evaluar riesgo de caso de uso IA',title_en:'Assess AI use case risk',when_es:'Antes de implementar IA que toque datos de personas.',when_en:'Before implementing AI touching people data.',prompt_es:'Evalúa riesgo de IA para [CASO DE USO] en RRHH: nivel AI Act UE, datos RGPD, supervisión humana, sesgo, explicabilidad, gobierno mínimo. Sé conservador.',prompt_en:'Assess AI risk for [USE CASE] in HR: EU AI Act level, GDPR data, human oversight, bias, explainability, minimum governance. Be conservative.',tip_es:'No sustituye asesoría legal.',tip_en:'Does not replace legal advice.'},
+{cat:'gobierno',title_es:'Política interna de uso de IA',title_en:'Internal AI usage policy',when_es:'Cuando la organización necesita reglas claras.',when_en:'When the org needs clear rules.',prompt_es:'Borrador política IA en RRHH. Empresa [SECTOR], [TAMAÑO] empleados, [PAÍSES]. Incluye: propósito, principios, clasificación por riesgo, supervisión, privacidad, formación, aprobación de herramientas, revisión periódica. Tono claro, no jurídico.',prompt_en:'Draft AI policy for HR. [INDUSTRY] company, [SIZE] employees, [COUNTRIES]. Include: purpose, principles, risk classification, oversight, privacy, training, tool approval, periodic review. Clear tone, not legalistic.',tip_es:'Borrador. Debe pasar por legal y DPO.',tip_en:'Draft. Must go through legal and DPO.'}
+];
+
+var CATS={es:{all:'Todos',recruiting:'Recruiting',onboarding:'Onboarding',feedback:'Feedback y Clima',formacion:'Formación',analytics:'Analytics',comunicacion:'Comunicación',gobierno:'Gobierno IA'},en:{all:'All',recruiting:'Recruiting',onboarding:'Onboarding',feedback:'Feedback & Climate',formacion:'Learning & Dev',analytics:'Analytics',comunicacion:'Communication',gobierno:'AI Governance'}};
+
+var UI={
+es:{label:'Cheat sheet para profesionales de RRHH',title:'Prompts de IA listos para usar',desc:'Prompts probados y estructurados para las tareas más frecuentes de talento y RRHH. Copia, personaliza y usa en ChatGPT, Claude, Gemini o cualquier LLM.',intro:'<strong>Cómo usar esta guía:</strong> Cada prompt tiene campos editables resaltados en <span class="prompt-var" style="cursor:default">verde</span> — haz clic en ellos para escribir tus datos antes de copiar. Pulsa copiar para llevar el prompt completo a tu herramienta de IA.',search:'Buscar por palabra clave...',counter:'prompts disponibles',noResults:'No se encontraron prompts.',foot1:'Guía complementaria al webinar "IA aplicada a Talento y RRHH". Los prompts son puntos de partida.',foot2:'Nunca compartas datos personales reales sin verificar política de privacidad y RGPD.'},
+en:{label:'Cheat sheet for HR professionals',title:'Ready-to-use AI Prompts',desc:'Proven, structured prompts for the most common talent and HR tasks. Copy, customize and use in ChatGPT, Claude, Gemini or any LLM.',intro:'<strong>How to use this guide:</strong> Each prompt has editable fields highlighted in <span class="prompt-var" style="cursor:default">green</span> — click them to type your data before copying. Click copy to take the full prompt to your AI tool.',search:'Search by keyword...',counter:'prompts available',noResults:'No prompts found.',foot1:'Reference guide for the "AI Applied to Talent & HR" webinar. Prompts are starting points.',foot2:'Never share real personal data without verifying privacy policy and GDPR compliance.'}
+};
+
+var currentLang='es',currentCat='all',searchQuery='',isDark=false,varValues={};
+
+document.getElementById('themeToggle').addEventListener('click',function(){
+  isDark=!isDark;
+  document.documentElement.setAttribute('data-theme',isDark?'dark':'');
+  document.getElementById('iconSun').style.display=isDark?'block':'none';
+  document.getElementById('iconMoon').style.display=isDark?'none':'block';
+});
+
+var searchEl=document.getElementById('searchInput');
+searchEl.addEventListener('input',function(){searchQuery=this.value.toLowerCase();render()});
+
+function renderVars(text,pid){
+  return text.replace(/\[([^\]]+)\]/g,function(m,inner){
+    var k=pid+'__'+inner.replace(/\s+/g,'_');
+    var v=varValues[k]||'';
+    return '<span class="prompt-var'+(v?' is-filled':'')+'" contenteditable="true" data-key="'+k+'" data-orig="'+inner+'">'+(v||m)+'</span>';
+  });
+}
+
+function filledText(text,pid){
+  return text.replace(/\[([^\]]+)\]/g,function(m,inner){
+    var k=pid+'__'+inner.replace(/\s+/g,'_');
+    return varValues[k]||m;
+  });
+}
+
+function copyText(t,btn){
+  navigator.clipboard.writeText(t).then(function(){
+    btn.textContent=currentLang==='es'?'Copiado':'Copied';btn.classList.add('is-copied');
+    setTimeout(function(){btn.textContent=currentLang==='es'?'Copiar':'Copy';btn.classList.remove('is-copied')},1500);
+  });
+}
+
+function render(){
+  var L=UI[currentLang];
+  document.querySelectorAll('[data-i]').forEach(function(el){var k=el.getAttribute('data-i');if(L[k])el.textContent=L[k]});
+  document.querySelector('[data-i="intro"]').innerHTML=L.intro;
+  document.querySelectorAll('.lang-btn').forEach(function(b,i){b.classList.toggle('is-active',i===(currentLang==='es'?0:1))});
+  searchEl.placeholder=L.search;
+
+  var cats=CATS[currentLang],fEl=document.getElementById('filters');
+  fEl.innerHTML=Object.keys(cats).map(function(k){return '<button class="filter-btn'+(k===currentCat?' is-active':'')+'" data-cat="'+k+'">'+cats[k]+'</button>'}).join('');
+  fEl.querySelectorAll('.filter-btn').forEach(function(b){b.addEventListener('click',function(){currentCat=this.getAttribute('data-cat');render()})});
+
+  var filtered=PROMPTS.filter(function(p){
+    if(currentCat!=='all'&&p.cat!==currentCat) return false;
+    if(!searchQuery) return true;
+    var t=(currentLang==='es'?p.title_es+p.prompt_es+p.when_es:p.title_en+p.prompt_en+p.when_en).toLowerCase();
+    return t.indexOf(searchQuery)>=0;
+  });
+
+  document.getElementById('counter').textContent=filtered.length+' '+L.counter;
+
+  var order=['recruiting','onboarding','feedback','formacion','analytics','comunicacion','gobierno'];
+  var sEl=document.getElementById('sections'),html='';
+
+  if(!filtered.length){html='<div class="no-results">'+L.noResults+'</div>'}
+  else{order.forEach(function(cat){
+    var ps=filtered.filter(function(p){return p.cat===cat});
+    if(!ps.length) return;
+    html+='<div class="section"><div class="section-title">'+cats[cat]+'</div>';
+    ps.forEach(function(p,i){
+      var uid=cat+'_'+i;
+      var title=currentLang==='es'?p.title_es:p.title_en;
+      var when=currentLang==='es'?p.when_es:p.when_en;
+      var prompt=currentLang==='es'?p.prompt_es:p.prompt_en;
+      var tip=currentLang==='es'?p.tip_es:p.tip_en;
+      var rendered=renderVars(prompt.replace(/</g,'&lt;').replace(/>/g,'&gt;'),uid);
+      html+='<div class="prompt-card"><div class="prompt-meta"><div class="prompt-title">'+title+'</div><button class="copy-btn" data-uid="'+uid+'">'+(currentLang==='es'?'Copiar':'Copy')+'</button></div><div class="prompt-when">'+when+'</div><div class="prompt-text">'+rendered+'</div><div class="prompt-tip">'+tip+'</div></div>';
+    });
+    html+='</div>';
+  })}
+
+  sEl.innerHTML=html;
+
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var uid=this.getAttribute('data-uid'),parts=uid.split('_'),cat=parts[0],idx=+parts[1];
+      var p=PROMPTS.filter(function(x){return x.cat===cat})[idx];
+      copyText(filledText(currentLang==='es'?p.prompt_es:p.prompt_en,uid),this);
+    });
+  });
+
+  document.querySelectorAll('.prompt-var[contenteditable]').forEach(function(el){
+    el.addEventListener('focus',function(){if(!varValues[this.dataset.key])this.textContent='';this.classList.add('is-filled')});
+    el.addEventListener('blur',function(){
+      var k=this.dataset.key,v=this.textContent.trim();
+      if(v&&v!=='['+this.dataset.orig+']'){varValues[k]=v;this.classList.add('is-filled')}
+      else{delete varValues[k];this.textContent='['+this.dataset.orig+']';this.classList.remove('is-filled')}
+    });
+    el.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();this.blur()}});
+  });
+}
+
+window.setLang=function(l){currentLang=l;render()};
+render();
+})();
+</script>
+</body>
+</html>
